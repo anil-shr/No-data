@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>No Data</title>
+<style>
+  :root {
+    --bg: #0b0d14;
+    --bg-2: #141829;
+    --text: #e8eaf2;
+    --muted: #8a90a8;
+    --accent: #7c8cff;
+    --accent-2: #b36bff;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f5f6fb;
+      --bg-2: #e6e9f7;
+      --text: #181b2b;
+      --muted: #5d637c;
+      --accent: #4f5fe6;
+      --accent-2: #9448e8;
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: radial-gradient(ellipse at 50% 30%, var(--bg-2), var(--bg) 70%);
+    color: var(--text);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    padding: 24px;
+  }
+
+  /* Floating background orbs */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.28;
+    pointer-events: none;
+    animation: drift 18s ease-in-out infinite;
+  }
+  .orb.one { width: 340px; height: 340px; background: var(--accent); top: -80px; left: -80px; }
+  .orb.two { width: 400px; height: 400px; background: var(--accent-2); bottom: -120px; right: -100px; animation-delay: -9s; }
+
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(50px, 40px) scale(1.12); }
+  }
+
+  .card {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 460px;
+    width: 100%;
+    animation: rise 0.9s cubic-bezier(.2,.8,.2,1) both;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Icon */
+  .icon-wrap {
+    position: relative;
+    width: 128px;
+    height: 128px;
+    margin: 0 auto 36px;
+    display: grid;
+    place-items: center;
+  }
+
+  .ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    opacity: 0;
+    animation: pulse 3s ease-out infinite;
+  }
+  .ring:nth-child(2) { animation-delay: 1s; }
+  .ring:nth-child(3) { animation-delay: 2s; }
+
+  @keyframes pulse {
+    0% { transform: scale(0.55); opacity: 0.55; }
+    100% { transform: scale(1.35); opacity: 0; }
+  }
+
+  .icon {
+    position: relative;
+    width: 84px;
+    height: 84px;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .icon svg { width: 100%; height: 100%; overflow: visible; }
+
+  .icon .disk-top { fill: none; stroke: url(#grad); stroke-width: 3; }
+  .icon .disk-body {
+    fill: none;
+    stroke: url(#grad);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: draw 1.6s ease forwards 0.3s;
+  }
+  .icon .slash {
+    stroke: var(--accent-2);
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    stroke-dasharray: 80;
+    stroke-dashoffset: 80;
+    animation: draw 0.8s ease forwards 1.5s;
+  }
+
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+
+  h1 {
+    font-size: clamp(1.7rem, 5vw, 2.2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rise 0.9s cubic-bezier(.2,.8,.2,1) 0.15s both;
+  }
+
+  p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--muted);
+    animation: rise 0.9s cubic-bezier(.2,.8,.2,1) 0.3s both;
+  }
+
+  /* Typing dots */
+  .dots {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 32px;
+    animation: rise 0.9s cubic-bezier(.2,.8,.2,1) 0.45s both;
+  }
+  .dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--muted);
+    opacity: 0.4;
+    animation: blink 1.4s ease-in-out infinite;
+  }
+  .dots span:nth-child(2) { animation-delay: 0.2s; }
+  .dots span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes blink {
+    0%, 80%, 100% { opacity: 0.25; transform: scale(0.85); }
+    40% { opacity: 1; transform: scale(1.15); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+
+  <main class="card">
+    <div class="icon-wrap">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="icon">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#7c8cff"/>
+              <stop offset="1" stop-color="#b36bff"/>
+            </linearGradient>
+          </defs>
+          <ellipse class="disk-top" cx="32" cy="16" rx="20" ry="8"/>
+          <path class="disk-body" d="M12 16v32c0 4.4 9 8 20 8s20-3.6 20-8V16M12 32c0 4.4 9 8 20 8s20-3.6 20-8"/>
+          <line class="slash" x1="8" y1="58" x2="56" y2="6"/>
+        </svg>
+      </div>
+    </div>
+
+    <h1>No Data to Show</h1>
+    <p>This site has no data to show right now.<br>Please contact the developer.</p>
+
+    <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+  </main>
+</body>
+</html>
